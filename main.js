@@ -1,16 +1,21 @@
 //openweather account: awalter, password0
 
-window.onload = function() {
+//to go manual, change getWeather to window.onload
+var getWeather = function() {
 	var request = new XMLHttpRequest();
 	//will hold temperature value once it's retrieved
 	var temp = 0;
-	//var sunriseTime = 0;
-	//var sunsetTime = 0;
-
+	//getting user zip
+	var userZip = document.getElementById("zipEntry").value;
+	
 	var date = new Date();
 	var currentHour = date.getHours();
 	var currentMin = date.getMinutes();
 	//my hack-assed way of fixing hour/minute display
+	if (currentHour === 0)
+	{
+		currentHour = 12;
+	}
 	if (currentMin < 10)
 	{
 		currentMin = "0" + currentMin;
@@ -25,7 +30,8 @@ window.onload = function() {
 		currentMin = currentMin + " AM";
 	}
 	
-	request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=16625,us&&units=imperial&appid=f6a43ecdd1319a9ef268cc366261662e", true);
+	//to use manually, replace concatenated section
+	request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + userZip +",us&&units=imperial&appid=f6a43ecdd1319a9ef268cc366261662e", true);
 	
 	var tempCheck = function() {
 		var colorIndicate = "black";
@@ -55,7 +61,7 @@ window.onload = function() {
 	}
 	
 	//function converts UNIX time
-	/*var time = function(var unixTime) {
+	time = function(unixTime) {
 		var date = new Date(unixTime*1000);
 		// Hours part from the timestamp
 		var hours = date.getHours();
@@ -74,7 +80,7 @@ window.onload = function() {
 		var amPm = hours24 > 11 ? 'pm' : 'am';
 		var minute = formattedTime.substring(2);
 		return hour + ':' + minute + amPm;
-	}*/
+	}
 	
 	request.onload = function() {
 		var responseJSONData = JSON.parse(request.responseText);
@@ -83,8 +89,8 @@ window.onload = function() {
 		document.getElementById("city").innerHTML = "<p class='data'>" + responseJSONData.name + "</p>";
 		document.getElementById("time").innerHTML = "<p class='data'>" + currentHour + ":" + currentMin + "</p>";
 		document.getElementById("temp").innerHTML = "<p class='data'>" + temp + "&deg;F" + "</p>";
-		document.getElementById("descrip").innerHTML = "<p class='data'>" +  responseJSONData.weather[0].description + " outside</p>";
-		document.getElementById("sun").innerHTML = "<p class='data'>" + "Sunrise: " + responseJSONData.sys.sunrise + "\nSunset: " + responseJSONData.sys.sunset + "</p>";
+		document.getElementById("descrip").innerHTML =  "<p class='data'>" + "Outside Condition:<br /> " + responseJSONData.weather[0].description + "</p>";
+		document.getElementById("sun").innerHTML = "<p class='data'>" + "Sunrise: " + time(responseJSONData.sys.sunrise) + "<br />Sunset: " + time(responseJSONData.sys.sunset) + "</p>";
 		document.getElementById("iconImage").src = "http://www.openweathermap.org/img/w/" + responseJSONData.weather[0].icon + ".png";
 		
 		//checking temp to set indicator color
@@ -96,6 +102,16 @@ window.onload = function() {
 		console.log("Connection Error");
 	}
 	
+	/*  Some Jquery I was messing with
+	$(document).ready(function() {
+		$(".data, p").mouseenter(function() {
+			$(this).fadeTo("fast", 1);
+		});
+		$(".data, p").mouseleave(function() {
+			$(this).fadeTo("fast", 0.5);
+		});
+	});
+	*/
 	request.send();
 
 }

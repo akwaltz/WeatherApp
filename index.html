@@ -26,51 +26,61 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
 
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  
 </head>
 <body>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <h2>The Local Weather</h2>
-  
-<section id="weather">
-  <div class="container">
-	<div class="row">
-	  <div class="six columns" id="city">
-	  <p class="data">CITY</p>
+    <h1>The Local Weather</h1>
+	
+	<!--  UI/UX; get user's zip -->
+	<div id="getWeather">
+	<p ><input type="text" id="zipEntry" placeholder="Type zip code here"/></p>
+	<button onclick="getWeather();">Get My Weather</button>
+	</div> 
+	  
+	  <!--columns for data-->
+	<section id="weather">
+	  <div class="container">
+		<div class="row">
+		  <div class="six columns" id="city">
+		  <p class="data">CITY</p>
+		  </div>
+		  <div class="six columns" id="time">
+		  <p class="data">TIME</p>
+		  </div>
+		</div>
 	  </div>
-	  <div class="six columns" id="time">
-	  <p class="data">TIME</p>
+	  
+	  <div class="container">
+		<div class="row">
+		  <div class="four columns" id="temp">
+		  <p class="data">TEMP</p>
+		  </div>
+		  <div class="four columns" id="icon">
+		  <img src="http://openweathermap.org/img/w/10d.png"/ id="iconImage" class="data">
+		  </div>
+		  <div class="four columns" id="color">
+		  <p class="data">Indicator</p>
+		  </div>
+		</div>
 	  </div>
-	</div>
-  </div>
-  
-  <div class="container">
-	<div class="row">
-	  <div class="four columns" id="temp">
-	  <p class="data">TEMP</p>
+	  
+	  <div class="container">
+		<div class="row">
+		  <div class="six columns" id="descrip">
+		  <p class="data">DESCRIPTION</p>
+		  </div>
+		  <div class="six columns" id="sun">
+		  <p class="data">SUNRISE</p>
+		  </div>
+		</div>
 	  </div>
-	  <div class="four columns" id="icon">
-	  <img src="http://openweathermap.org/img/w/10d.png"/ id="iconImage" class="data">
-	  </div>
-	  <div class="four columns" id="color">
-	  <p class="data">Indicator</p>
-	  </div>
-	</div>
-  </div>
-  
-  <div class="container">
-	<div class="row">
-	  <div class="six columns" id="descrip">
-	  <p class="data">DESCRIPTION</p>
-	  </div>
-	  <div class="six columns" id="sun">
-	  <p class="data">SUNRISE SUNSET</p>
-	  </div>
-	</div>
-  </div>
-</section>
-  
+	</section>
+	  
   <script src="main.js"></script>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
